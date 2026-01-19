@@ -133,13 +133,37 @@ interface TopGainersLosersResponse {
 interface PriceData {
   usd: number;
 }
+interface TradeResponse {
+  data: Trade[];
+}
 
 interface Trade {
-  price?: number;
-  timestamp?: number;
-  type?: string;
-  amount?: number;
-  value?: number;
+  id: string;
+  type: 'trade';
+  attributes: TradeAttributes;
+}
+
+interface TradeAttributes {
+  block_number: number;
+  tx_hash: string;
+  tx_from_address: string;
+
+  from_token_amount: string;
+  to_token_amount: string;
+
+  price_from_in_currency_token: string;
+  price_to_in_currency_token: string;
+
+  price_from_in_usd: string;
+  price_to_in_usd: string;
+
+  block_timestamp: string; // ISO 8601
+  kind: 'buy' | 'sell';
+
+  volume_in_usd: string;
+
+  from_token_address: string;
+  to_token_address: string;
 }
 
 interface ExtendedPriceData {
@@ -203,6 +227,12 @@ interface CoinDetailsData {
     price_change_percentage_30d_in_currency: {
       usd: number;
     };
+    price_change_percentage_1h_in_currency: {
+      usd: number;
+    };
+    price_change_percentage_7d_in_currency: {
+      usd: number;
+    };
     market_cap: {
       usd: number;
     };
@@ -224,17 +254,15 @@ interface CoinDetailsData {
 
 interface LiveDataProps {
   coinId: string;
-  poolId: string;
   coin: CoinDetailsData;
   coinOHLCData?: OHLCData[];
-  children?: React.ReactNode;
 }
 
 interface LiveCoinHeaderProps {
   name: string;
   image: string;
-  livePrice?: number;
-  livePriceChangePercentage24h: number;
+  price?: number;
+  priceChangePercentage24h: number;
   priceChangePercentage30d: number;
   priceChange24h: number;
 }
@@ -245,6 +273,13 @@ interface Category {
   market_cap_change_24h: number;
   market_cap: number;
   volume_24h: number;
+}
+
+interface PriceChange {
+  period: '1h' | '24h' | '7d' | '30d';
+  changeUsd: number;
+  changePercent: number;
+  kind: 'up' | 'down';
 }
 
 interface UseCoinGeckoWebSocketProps {

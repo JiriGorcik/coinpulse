@@ -120,3 +120,35 @@ export const buildPageNumbers = (
 
   return pages;
 };
+
+export const getPriceChangeData = (coin: CoinDetailsData): PriceChange[] => {
+  const md = coin.market_data;
+  const price = md.current_price.usd;
+
+  return [
+    {
+      period: '1h',
+      changeUsd: price * (md.price_change_percentage_1h_in_currency.usd / 100),
+      changePercent: md.price_change_percentage_1h_in_currency.usd,
+      kind: md.price_change_percentage_1h_in_currency.usd >= 0 ? 'up' : 'down',
+    },
+    {
+      period: '24h',
+      changeUsd: md.price_change_24h_in_currency.usd,
+      changePercent: md.price_change_percentage_24h_in_currency.usd,
+      kind: md.price_change_percentage_24h_in_currency.usd >= 0 ? 'up' : 'down',
+    },
+    {
+      period: '7d',
+      changeUsd: price * (md.price_change_percentage_7d_in_currency.usd / 100),
+      changePercent: md.price_change_percentage_7d_in_currency.usd,
+      kind: md.price_change_percentage_7d_in_currency.usd >= 0 ? 'up' : 'down',
+    },
+    {
+      period: '30d',
+      changeUsd: price * (md.price_change_percentage_30d_in_currency.usd / 100),
+      changePercent: md.price_change_percentage_30d_in_currency.usd,
+      kind: md.price_change_percentage_30d_in_currency.usd >= 0 ? 'up' : 'down',
+    },
+  ];
+};
