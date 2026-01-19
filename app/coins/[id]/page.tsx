@@ -60,16 +60,6 @@ const Page = async ({ params }: NextPageProps) => {
           coin={coinData}
           coinOHLCData={coinOHLCData}
         />
-
-        <h1 className="text-3xl font-bold">
-          Coin <strong>{id}</strong>
-        </h1>
-
-        <p>Trend Overview</p>
-
-        <p>Recent Trades</p>
-
-        <p>Exchange Listing</p>
       </section>
 
       <section className="secondary">

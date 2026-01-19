@@ -4,9 +4,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { SearchModal } from '@/components/SearchModal';
+import useSWR from 'swr';
+import { getTrendingCoins } from '@/lib/coingecko.actions';
 
 const Header = () => {
   const pathname = usePathname();
+
+  // fetch trending coins via SWR
+  const { data: trendingCoins } = useSWR('trending-coins', getTrendingCoins);
 
   return (
     <header>
@@ -26,7 +32,7 @@ const Header = () => {
             Home
           </Link>
 
-          <p>Search Modal</p>
+          <SearchModal initialTrendingCoins={trendingCoins || []} />
 
           <Link
             href="/coins"

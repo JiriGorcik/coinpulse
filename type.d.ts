@@ -66,6 +66,59 @@ interface CoinMarketData {
   last_updated: string;
 }
 
+interface CoinGeckoTrendingResponse {
+  coins: TrendingCoin[];
+}
+
+interface SearchCoin {
+  id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+  data?: {
+    current_price: number;
+    price_change_percentage_24h: number;
+  };
+}
+
+interface MarketData {
+  id: string;
+  current_price: number;
+  price_change_percentage_24h: number;
+}
+
+interface CoinGeckoSearchResponse {
+  coins: CoinGeckoSearchCoin[];
+  exchanges: CoinGeckoSearchExchange[];
+  nfts: CoinGeckoSearchNFT[];
+}
+
+interface CoinGeckoSearchCoin {
+  id: string;
+  name: string;
+  api_symbol: string;
+  symbol: string;
+  market_cap_rank: number | null;
+  thumb: string;
+  large: string;
+}
+
+interface CoinGeckoSearchExchange {
+  id: string;
+  name: string;
+  market_type: string;
+  thumb: string;
+  large: string;
+}
+
+interface CoinGeckoSearchNFT {
+  id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+  large: string;
+}
+
 interface TrendingCoin {
   item: {
     id: string;
@@ -80,19 +133,6 @@ interface TrendingCoin {
         usd: number;
       };
     };
-  };
-}
-
-interface SearchCoin {
-  id: string;
-  name: string;
-  symbol: string;
-  market_cap_rank: number | null;
-  thumb: string;
-  large: string;
-  data: {
-    price?: number;
-    price_change_percentage_24h: number;
   };
 }
 
